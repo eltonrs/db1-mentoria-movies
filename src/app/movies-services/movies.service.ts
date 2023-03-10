@@ -12,12 +12,11 @@ import { Films } from '../models/films.model';
 export class MoviesService {
 
   readonly apiStarWars: string = 'https://swapi.dev/api';
-  films: Films[] = [];
 
   constructor(private http: HttpClient) { }
 
-  getAllMovies(){
-    this.http
+  getAllMovies(): Observable<Films> {
+    return this.http
       .get<Films>(
         `${this.apiStarWars}/films`,
         {
@@ -25,12 +24,13 @@ export class MoviesService {
           responseType: 'json'
         }
       )
-      .subscribe(response => {
-        response.results.forEach(function(value){
-          console.log("Title: " + value.title);
-          console.log("Release Date: " + value.release_date);
-        });
-      });
+      // .subscribe(response => {
+      //   response.results.forEach(function(value){
+      //     console.log("Title: " + value.title);
+      //     console.log("Release Date: " + value.release_date);
+      //   })
+      
+      ;
   }
 }
 
