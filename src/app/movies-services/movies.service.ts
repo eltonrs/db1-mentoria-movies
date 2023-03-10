@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, map, retry } from 'rxjs/operators';
 
-import { Films } from '../models/films.model';
+import { Film, Films } from '../models/films.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,22 +15,30 @@ export class MoviesService {
 
   constructor(private http: HttpClient) { }
 
-  getAllMovies(): Observable<Films> {
+  getAllMovies(): Observable<Film[]> {
     return this.http
       .get<Films>(
         `${this.apiStarWars}/films`,
         {
           observe: 'body',
           responseType: 'json'
-        }
-      )
-      // .subscribe(response => {
-      //   response.results.forEach(function(value){
-      //     console.log("Title: " + value.title);
-      //     console.log("Release Date: " + value.release_date);
-      //   })
-      
-      ;
+        })
+        .pipe(map(
+          response => {
+            let films: Film[];
+
+            films = response.results.map(item => {
+              let film: Film = new Film();
+
+              film.title = item.title;
+              film.release_date = item.release_date;
+
+              return film;
+            });
+
+            return films;
+          }
+        ));
   }
 }
 
