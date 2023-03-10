@@ -20,8 +20,8 @@ export class MovieListComponent implements OnInit {
   callService() {
     this.moviesSercive
       .getAllMovies()
-      .subscribe(filmes => this.films = filmes)
-
-    console.log(this.films);
+      .subscribe(filmes => {
+        this.films = filmes;
+        console.log(this.films);})
   };
 }

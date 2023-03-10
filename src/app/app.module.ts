@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { MovieListComponent } from './movie-list/movie-list.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
+import { MoviesService } from './movies-services/movies.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { MovieDetailsComponent } from './movie-details/movie-details.component';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [MoviesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
